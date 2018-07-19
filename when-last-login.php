@@ -3,7 +3,7 @@
 Plugin Name: When Last Login
 Plugin URI: https://wordpress.org/plugins/when-last-login/
 Description: See when a user logs into your WordPress site.
-Version: 1.1
+Version: 1.2
 Author: Yoohoo Plugins
 Author URI: https://yoohooplugins.com
 Text Domain: when-last-login
@@ -641,7 +641,16 @@ class When_Last_Login {
           } else {
             add_action( 'admin_notices', array( $this, 'wll_remove_records_notice__warning' ) );
           } 
+        }
 
+        if ( isset( $_REQUEST['remove_wll_login_count'] ) ) {
+          $sql = "DELETE FROM $wpdb->usermeta WHERE meta_key = 'when_last_login_count'";
+
+          if ( $wpdb->query( $sql ) > 0 ) {
+            add_action( 'admin_notices', array( $this, 'wll_remove_records_notice__success' ) );
+          } else {
+            add_action( 'admin_notices', array( $this, 'wll_remove_records_notice__warning' ) );
+          } 
         }
     }
 
