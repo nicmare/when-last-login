@@ -347,9 +347,7 @@ class When_Last_Login {
                     </tr>                      
                     <?php
 
-                    $user_query = new WP_User_Query( array( 'meta_key' => 'when_last_login_count', 'meta_value' => 0, 'meta_compare' => '!=', 'order' => 'ASC', 'oderby' => 'meta_value', 'number' => 3, 'blog_id' => $blog_id ) );
-
-                    $topusers = $user_query->get_results();
+                    $user_query = new WP_User_Query( array( 'meta_key' => 'when_last_login_count', 'meta_value' => 0, 'meta_compare' => '!=', 'order' => 'DESC', 'orderby' => 'meta_value', 'number' => 3, 'blog_id' => $blog_id ) );
 
                     if( $topusers ){
                         ?>
@@ -397,7 +395,7 @@ class When_Last_Login {
 
             <?php
 
-            $user_query = new WP_User_Query( array( 'meta_key' => 'when_last_login_count', 'meta_value' => 0, 'meta_compare' => '!=', 'order' => 'ASC', 'oderby' => 'meta_value', 'number' => 3 ) );
+            $user_query = new WP_User_Query( array( 'meta_key' => 'when_last_login_count', 'meta_value' => 0, 'meta_compare' => '!=', 'order' => 'DESC', 'orderby' => 'meta_value', 'number' => 3 ) );
 
             $topusers = $user_query->get_results();
 
@@ -705,7 +703,15 @@ class When_Last_Login {
 
       $ip = apply_filters( 'wll_user_ip_address', $ip );
       
-      return IpAnonymizer::anonymizeIp( $ip );
+      // filter to not anonymize IP address data, use carefully and check your countries privacy laws.
+      $anonymize_ip_address = apply_filters( 'wll_anonymize_ip', true, $ip );
+
+      if ( $anonymize_ip_address ) {
+        return IpAnonymizer::anonymizeIp( $ip );
+      } else {
+        return $ip;
+      }
+      
     }
 
 } // end class
