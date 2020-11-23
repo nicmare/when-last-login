@@ -360,7 +360,7 @@ class When_Last_Login {
                             echo '<tr><td>' . $count . '</td>';
                             echo '<td>' . $wllusers->display_name . '</td>';
                             echo '<td>' . get_user_meta( $wllusers->ID, 'when_last_login_count', true ) . '</td>';
-                            echo '<td>' . date( 'Y-m-d H:i:s', get_user_meta( $wllusers->ID, 'when_last_login', true ) ) . '</td></tr>';
+                            echo '<td>' . date( apply_filter('wll_date_format','Y-m-d H:i:s'), get_user_meta( $wllusers->ID, 'when_last_login', true ) ) . '</td></tr>';
                             $count++;
                         }
                       
@@ -410,7 +410,7 @@ class When_Last_Login {
                     echo '<tr><td>' . $count . '</td>';
                     echo '<td>' . $wllusers->display_name . '</td>';
                     echo '<td>' . get_user_meta( $wllusers->ID, 'when_last_login_count', true ) . '</td>';
-                    echo '<td>' . date( 'Y-m-d H:i:s', get_user_meta( $wllusers->ID, 'when_last_login', true ) ) . '</td></tr>';
+                    echo '<td>' . date( apply_filter('wll_date_format','Y-m-d H:i:s'), get_user_meta( $wllusers->ID, 'when_last_login', true ) ) . '</td></tr>';
                     $count++;
                 }
               
